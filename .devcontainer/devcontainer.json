@@ -1,0 +1,47 @@
+{
+  "name": "modern-application-development",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "workspace",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "features": {
+    "ghcr.io/devcontainers/features/azure-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/terraform:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "ms-azuretools.vscode-azurecli",
+        "hashicorp.terraform",
+        "ms-vscode.azure-repos",
+        "dbaeumer.vscode-eslint"
+      ]
+    }
+  },
+  "forwardPorts": [
+    3000,
+    3306,
+    8080
+  ],
+  "portsAttributes": {
+    "3000": {
+      "label": "app"
+    },
+    "3306": {
+      "label": "mysql"
+    },
+    "8080": {
+      "label": "web"
+    }
+  },
+  "remoteEnv": {
+    "MYSQL_HOST": "mysql",
+    "MYSQL_PORT": "3306",
+    "MYSQL_USER": "root",
+    "MYSQL_PASSWORD": "devpassword",
+    "MYSQL_DATABASE": "notes"
+  },
+  "postCreateCommand": "if [ -f app/package.json ]; then cd app && npm install; fi",
+  "remoteUser": "node"
+}
