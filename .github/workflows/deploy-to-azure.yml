@@ -51,9 +51,14 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+      - name: Resolve ACR login server
+        id: acr
+        run: |
+          echo "login_server=$(az acr show --name ${{ secrets.ACR_SERVER }} --query loginServer -o tsv)" >> "$GITHUB_OUTPUT"
+
       - name: Deploy to Azure Container Apps
         run: |
           az containerapp update \
             --name ${{ secrets.ACA_NAME }} \
             --resource-group ${{ secrets.RESOURCE_GROUP }} \
-            --image ${{ secrets.ACR_SERVER }}/${{ secrets.ACR_REPOSITORY }}:${{ github.sha }}
+            --image ${{ steps.acr.outputs.login_server }}/${{ secrets.ACR_REPOSITORY }}:${{ github.sha }}
