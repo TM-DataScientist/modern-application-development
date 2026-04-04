@@ -7,7 +7,9 @@ var getCert = function (target = '') {
   switch (key) {
     case 'azure':
       return {
-        ca: fs.readFileSync(path.join(__dirname, './certs/azure-ca.pem'), 'utf8'),
+        // Azure Database for MySQL can rotate root certificates.
+        // Rely on the container's trust store instead of pinning a single CA file.
+        minVersion: 'TLSv1.2',
       };
     case 'aws':
       return {
