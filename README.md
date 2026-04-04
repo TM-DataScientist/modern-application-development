@@ -125,3 +125,5 @@ docker-compose up
 
 - `app/Dockerfile` を追加
 - `node:22-alpine` ベースでアプリをコピーし、`npm install` 実行後に `npm start` で起動する設定を追加
+- ルート直下に Docker Compose 用の `.env` をローカル作成
+- `.env` は機密情報を含み得るため Git 管理には含めず、履歴は `CHANGE LOG` に記録
