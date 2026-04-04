@@ -118,3 +118,10 @@ docker-compose up
       --image webapp:0.1 \
       .
     ```
+
+## CHANGE LOG
+
+### 2026-04-04
+
+- `app/Dockerfile` を追加
+- `node:22-alpine` ベースでアプリをコピーし、`npm install` 実行後に `npm start` で起動する設定を追加
